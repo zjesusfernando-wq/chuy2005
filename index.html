@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Árbol Genealógico Familiar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js" integrity="sha512-OWu4xYswXoXT1qWYP9euYqhmW4qKDkBKahJbWV07Lny9HHrrPdmU23ngyLsXwcBuNAE+gLQUryCzYsHs2kNEew==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+  <header>
+    <div>
+      <p class="tag">Versión mínima funcional</p>
+      <h1>Árbol Genealógico Familiar</h1>
+      <p class="lead">Agrega personas, organiza las relaciones y mira el árbol en vivo. Todo se guarda en tu navegador.</p>
+    </div>
+    <button id="exportButton" class="primary">Exportar JSON</button>
+  </header>
+
+  <main>
+    <section class="panel">
+      <div class="panel-header">
+        <h2 id="formTitle">Agregar persona</h2>
+        <button id="resetButton" class="ghost">Limpiar formulario</button>
+      </div>
+      <form id="personForm">
+        <div class="grid">
+          <label>Nombre completo
+            <input type="text" name="fullName" required placeholder="Ej. Carmen García" />
+          </label>
+          <label>Fecha de nacimiento
+            <input type="date" name="birthDate" />
+          </label>
+          <label>Lugar de nacimiento
+            <input type="text" name="birthPlace" placeholder="Ciudad, país" />
+          </label>
+          <label>Fecha de fallecimiento (opcional)
+            <input type="date" name="deathDate" />
+          </label>
+          <label>Lugar de fallecimiento (opcional)
+            <input type="text" name="deathPlace" placeholder="Ciudad, país" />
+          </label>
+          <label>Padre
+            <select name="fatherId">
+              <option value="">(Ninguno)</option>
+            </select>
+          </label>
+          <label>Madre
+            <select name="motherId">
+              <option value="">(Ninguno)</option>
+            </select>
+          </label>
+          <label class="full">Notas adicionales
+            <textarea name="notes" rows="3" placeholder="Historia, anécdotas, profesión..."></textarea>
+          </label>
+        </div>
+        <div class="actions">
+          <button type="submit" class="primary" id="submitButton">Guardar persona</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <h2>Personas guardadas</h2>
+        <p class="hint">Haz clic en editar para actualizar o en eliminar para borrar.</p>
+      </div>
+      <div class="table-wrapper">
+        <table id="peopleTable">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Nacimiento</th>
+              <th>Padres</th>
+              <th>Notas</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td colspan="5" class="empty">Aún no hay personas cargadas.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <h2>Árbol genealógico</h2>
+        <p class="hint">Se genera automáticamente con la información ingresada.</p>
+      </div>
+      <div id="treeContainer">
+        <svg id="tree"></svg>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <h2>Importar datos</h2>
+        <p class="hint">Puedes cargar un archivo exportado previamente en formato JSON.</p>
+      </div>
+      <div class="importer">
+        <input type="file" id="importFile" accept="application/json" />
+        <button id="importButton" class="ghost">Importar archivo</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Los datos se guardan localmente en tu navegador (localStorage). Puedes exportarlos para respaldo o compartirlos.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
